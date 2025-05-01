@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="canonical" href="https://impact-rss25.github.io/">
+
+  <meta charset="utf-8">
+  <meta name="description"
+        content="IMPACT: Intelligent Motion Planning with Acceptable Contact Trajectories via Vision-Language Models.">
+  <meta name="keywords" content="Robot Learning, Motion Planning, Vision-Language Models, Contact, Clutter">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IMPACT: Intelligent Motion Planning with Acceptable Contact Trajectories via Vision-Language Models</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <script type="text/javascript" async
+  src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script type="text/javascript" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">IMPACT: Intelligent Motion Planning with Acceptable Contact Trajectories via Vision-Language Models</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              Anonymous Authors
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Motion planning involves determining a sequence of robot configurations to reach a desired pose, subject to movement and safety constraints. 
+            Traditional motion planning finds collision-free paths, but this is overly restrictive in clutter, where it may not be possible for a robot to accomplish a task without contact. 
+            In addition, contacts range from relatively benign (e.g., brushing a soft pillow) to more dangerous (e.g., toppling a glass vase). 
+            Due to this diversity, it is difficult to characterize which contacts may be acceptable or unacceptable. 
+          </p>
+          <p>
+            In this paper, we propose <b>IMPACT</b>, a novel motion planning framework that uses Vision-Language Models (VLMs) to infer environment semantics, identifying which parts of the environment can best tolerate contact based on object properties and locations. 
+            Our approach uses the VLM's outputs to produce a dense 3D "cost map" that encodes contact tolerances and seamlessly integrates with standard motion planners. 
+            We perform experiments using 20 simulation and 10 real-world scenes and assess using task success rate, object displacements, and feedback from human evaluators. 
+            Our results over 3620 simulation and 200 real-world trials suggest that IMPACT enables efficient contact-rich motion planning in cluttered settings while outperforming alternative methods and ablations.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Method Overview</h2> 
+
+        <div class="column has-text-centered">
+          <img src="./static/images/method_v07.jpg"
+            class="centered-method"
+            alt="method">
+        </div>
+
+        <div class="content has-text-justified">
+          <p>
+            Overview of <b>IMPACT</b>. There is a toy bear, a coffee cup and a tomato can on the table. 
+            The objective is to reach the tomato can. 
+            We use SAM2 to segment the image and label the objects using "1", "2", and "3" to assist GPT's visual reasoning. 
+            GPT also receives a language template prompt \( \ell \) with object information from SAM2. 
+            GPT produces <b><i>costs</i></b> for the three objects, which are projected into a voxel grid \( C \) indicating the cost for the robot end-effector to enter each voxel.
+            The costs are high for the coffee cup (GPT-assigned cost: 8) and the tabletop (a fixed cost of 10). 
+            We use a cost of -1 for the target object. 
+            Finally, an off-the-shelf motion planner (RRT*) uses this to guide the robot, which avoids the coffee cup but makes contact with the toy bear to successfully reach the tomato can. 
+          </p>
+        </div>
+        <br/> 
+        
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Real World Results</h2>
+        <br/> 
+        
+        <div class="columns is-centered is-vcentered">
+
+          <div class="scene-container">
+            <div class="dropdown-container">
+              <label><strong>Scene</strong></label>
+              <select class="dropdown" id="scene-select-real" onchange="updateVideosReal()">
+              </select>
+            </div>
+            <br/>    
+
+            <p id="target-object-text-real">
+              The target object is <strong>the tomato can</strong>.
+            </p>
+          </div>
+        </div>    
+        <br/>    
+
+        <div class="columns is-centered">
+          <div class="column is-6 has-text-centered">
+            <h3 class="title is-4">Baseline: LAPP</h3>
+            <video id="video-real-left" width="98%" controls muted autoplay loop>
+              <source src="./static/videos/real/scene1-lapp-8.mp4" type="video/mp4">
+            </video>
+          </div>
+    
+          <div class="column is-6 has-text-centered">
+            <h3 class="title is-4">Ours: IMPACT+RRT*</h3>
+            <video id="video-real-right" width="98%" controls muted autoplay loop>
+              <source src="./static/videos/real/scene1-ours-7.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <br/> 
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Simulation Results</h2> 
+        <br/> 
+
+        <div class="columns is-centered is-vcentered">
+
+          <div class="scene-container">
+            <div class="dropdown-container">
+              <label><strong>Scene</strong></label>
+              <select class="dropdown" id="scene-select-sim" onchange="updateVideosSim()">
+              </select>
+            </div>
+            <br/>    
+            
+            <p id="target-object-text-sim">
+              The target object is <strong>the foam brick</strong>.
+            </p>
+          </div>
+        </div>
+        <br/>  
+
+        <div class="columns is-centered">
+          <div class="column is-6 has-text-centered">
+            <div class="is-inline-flex" style="align-items: baseline;  gap: 2px;">
+              <h3 class="title is-4" style="margin: 3; display: inline-block;">Baseline:</h3>
+              <select class="dropdown" id="method-select-sim" style="display: inline-block;" onchange="updateVideosSim()">
+                <option value="impact-rrt">IMPACT+RRT</option>
+                <option value="impact-mpc">IMPACT+MPC</option>
+                <option value="collision_free-rrt_star">Collision-Free+RRT*</option>
+                <option value="collision_free-rrt">Collision-Free+RRT</option>
+                <option value="collision_free-mpc">Collision-Free+MPC</option>
+                <option value="lapp">LAPP</option>
+              </select>
+            </div>
+
+            <video id="video-sim-left" width="98%" controls muted autoplay loop>
+              <source src="./static/videos/sim/scene101-default-shelf2-center-rrt-200-10-02_video.mp4" type="video/mp4">
+            </video>
+            <p id="no-path-left" style="display: none; color: rgb(0, 0, 0); font-weight: bold;">No path found.</p>
+          </div>
+    
+          <div class="column is-6 has-text-centered">
+            <h3 class="title is-4">Ours: IMPACT+RRT*</h3>
+            <video id="video-sim-right" width="98%" controls muted autoplay loop>
+              <source src="./static/videos/sim/scene101-default-shelf2-center-rrt_star-200-10-08_video.mp4" type="video/mp4">
+            </video>
+            <p id="no-path-right" style="display: none; color: rgb(0, 0, 0); font-weight: bold;">No path found.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <br/> 
+
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Full Prompt</h2> 
+        
+        <div class="text-container">
+          <button class="copy-button" onclick="copyText()">Copy</button>
+          <pre class="text-block" id="textBlock">
+You are an advanced AI system designed to assist in robotic navigation within cluttered environments. 
+Your task is to evaluate the safety of various objects in a scene, considering not only the individual characteristics of each object but also their interactions and the physical principles that govern their stability and potential movement. 
+For each listed object, you will assign a safety score ranging from 0 to 10, where 0 indicates minimal risk of damage upon collision and 10 signifies a high risk of damage. 
+Your assessment should consider the object's material, size, context, and its relationship with surrounding objects, including any potential domino effects or other interaction-induced risks.
+
+Please provide a safety score for each object, taking into account the following:
+- Object Material and Structural Integrity: How fragile or sturdy the object is (e.g., glass vs. plastic vs. metal).
+- Stability and Likelihood of Movement: Whether the object is firmly placed or precariously balanced. For instance, a stable stack of books alone might be low risk, but if there is a fragile object on top, the risk increases significantly.
+- Potential Domino Effects or Chain Reactions: If collision with one object could cause it to roll, topple, or otherwise move into other objects, increasing the overall risk. For example, a ball might be low risk in isolation, but if it can roll and knock over a wine glass, the effective risk is higher.
+- Proximity and Arrangement: How close the object is to other fragile or easily toppled items. Even if an object (like a sugar box) is normally sturdy, being positioned next to a fragile wine glass can raise its overall risk score if it could collide or push the glass.
+- Any Other Relevant Physical Interactions: Any additional factors that might increase the risk of damage, such as height above the ground, shape of the surface, or presence of liquids.
+
+Each item is an object labelled in white with its respective ID number. Adhere to the specified format for your response, listing each object followed by its corresponding safety score. Do not include any additional text or output.
+
+Format Requirements:
+- The JSON object must be a single string.
+- Each key must be the object's ID number in parentheses (e.g., "1"), and each value must be the safety score (an integer between 0 and 10).
+- Do not include any text other than the JSON object in that final line. Do not add something like "```json" or "```".
+- Do not include newlines, extra punctuation, or object names in the JSON.
+- Every key/value should be strictly "ID": score.
+- No explanations or reasoning should appear in the final JSON—only the scores.
+
+Input objects:
+{object_list}
+Your analysis should be comprehensive, considering the dynamic interactions between objects and the physical principles that may affect the outcome of a collision.
+          </pre>
+        </div>
+      </div>
+
+    
+    <script>
+        function copyText() {
+            let text = document.getElementById("textBlock").innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                // alert("Text copied to clipboard!");
+            }).catch(err => {
+                console.error("Failed to copy: ", err);
+            });
+        }
+    </script>
+    
+    <script>
+      let sceneDropdownReal = document.getElementById("scene-select-real");
+      for (let i = 1; i <= 10; i++) {
+          let option = document.createElement("option");
+          option.value = `scene${i}`; // Value in the format "scene1", "scene2", etc.
+          option.textContent = i.toString().padStart(2, "0"); // Display "01", "02", ..., "10"
+          sceneDropdownReal.appendChild(option);
+      }
+    </script>
+
+    <script>
+      let sceneDropdownSim = document.getElementById("scene-select-sim");
+      for (let i = 1; i <= 20; i++) {
+          let option = document.createElement("option");
+          index = i.toString().padStart(2, "0");
+          option.value = `scene1${index}`; 
+          option.textContent = i.toString().padStart(2, "0"); 
+          sceneDropdownSim.appendChild(option);
+      }
+    </script>
+
+
+    <script>
+      function updateVideosReal() {
+          let scene = document.getElementById("scene-select-real").value;
+
+          fetch('./static/target_objects.json')
+            .then(response => response.json())
+            .then(data => {
+                let targetText = data[scene] || ""; 
+                document.getElementById("target-object-text-real").innerHTML = `The target object is <strong>the ${targetText}</strong>.`;
+            })
+            .catch(error => console.error("Error loading target object JSON:", error));
+
+          fetch('./static/video_files.json')
+          .then(response => response.json())
+          .then(videoData => {
+              if (videoData[scene]) {
+                  let lappFilename = videoData[scene]["lapp"];
+                  let oursFilename = videoData[scene]["ours"];
+
+                  document.getElementById("video-real-left").src = `./static/videos/real/${lappFilename}`;
+                  document.getElementById("video-real-right").src = `./static/videos/real/${oursFilename}`;
+
+                  document.getElementById("video-real-left").load();
+                  document.getElementById("video-real-right").load();
+              } else {
+                  console.error("Scene not found in video JSON:", scene);
+              }
+          })
+          .catch(error => console.error("Error loading video filenames:", error));
+      }
+    </script>
+
+    <script>
+      function updateVideosSim() {
+          let scene = document.getElementById("scene-select-sim").value;
+          let method = document.getElementById("method-select-sim").value;
+
+          fetch('./static/target_objects.json')
+            .then(response => response.json())
+            .then(data => {
+                let targetText = data[scene] || ""; 
+
+            console.log("Scene selected:", scene);
+            console.log("Target object retrieved:", targetText);
+
+                document.getElementById("target-object-text-sim").innerHTML = `The target object is <strong>the ${targetText}</strong>.`;
+            })
+            .catch(error => console.error("Error loading target object JSON:", error));
+
+          fetch('./static/video_files.json')
+            .then(response => response.json())
+            .then(videoData => {
+                if (videoData[scene]) {
+                    let baseFilename = videoData[scene]?.[method] || null;
+                    let oursFilename = videoData[scene]?.["impact-rrt_star"] || null;
+
+                    if (baseFilename) {
+                      document.getElementById("video-sim-left").src = `./static/videos/sim/${baseFilename}`;
+                      document.getElementById("video-sim-left").load();
+                      document.getElementById("video-sim-left").style.display = "block";
+                      document.getElementById("no-path-left").style.display = "none";
+                    } else {
+                      document.getElementById("video-sim-left").style.display = "none";
+                      document.getElementById("no-path-left").style.display = "block";
+                    }
+
+                    if (oursFilename) {
+                      document.getElementById("video-sim-right").src = `./static/videos/sim/${oursFilename}`;
+                      document.getElementById("video-sim-right").load();
+                      document.getElementById("video-sim-right").style.display = "block";
+                      document.getElementById("no-path-right").style.display = "none";
+                    } else {
+                      document.getElementById("video-sim-right").style.display = "none";
+                      document.getElementById("no-path-right").style.display = "block";
+                    }
+
+                } else {
+                    console.error("No matching video found for:", scene, method);
+                }
+            })
+            .catch(error => console.error("Error loading video filenames:", error));
+      }
+    </script>
+
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <!-- <button class="copy-button" onclick="copyText()">Copy</button> -->
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Design and source code from <a href="https://nerfies.github.io/">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
