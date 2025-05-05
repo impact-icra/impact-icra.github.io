@@ -115,7 +115,30 @@
             Finally, an off-the-shelf motion planner (RRT*) uses this to guide the robot, which avoids the coffee cup but makes contact with the toy bear to successfully reach the tomato can. 
           </p>
         </div>
-        <br/> 
+        
+
+        <h3 class="title is-4">Cost Map Visualization</h3> 
+
+        <div class="columns">
+          <div class="column is-half has-text-centered">
+            <p style="text-align:center;">
+              <video id="interactive-video" width="100%" height="425" controls autoplay loop muted>
+                <source src="./static/videos/sim/scene102-cot-shelf2-center-rrt_star-200-10-03_video.mp4" type="video/mp4">
+              </video>
+            </p>
+          </div>
+          <div class="column has-text-centered">
+            <iframe id="interactive-html" src="./static/maps/scene102_costmap.html" width="100%" height="340" frameborder="0" style="margin: 0; padding: 0;"></iframe>
+            <!-- <p style="text-align:center; margin-top: auto;"> -->
+            <p style="text-align: center">
+              Interactive 3D Cost Map
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <br/>
         
 
     <div class="columns is-centered">

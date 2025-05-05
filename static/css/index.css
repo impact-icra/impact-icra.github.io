@@ -218,8 +218,7 @@ body {
 .dropdown {
   padding: 5px;
   font-size: 16px;
-  border: 1px solid #1cd2b1;
-  /* border: 1px solid #ccc; */
+  border: 1px solid #ccc;
   border-radius: 5px;
   height: 32px !important;
   vertical-align: text-bottom !important;
