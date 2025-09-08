@@ -1,43 +1,43 @@
 {
     "scene1": {
-        "lapp": "scene1-lapp-8.mp4",
-        "ours": "scene1-ours-7.mp4"
+        "lapp": "scene1-lapp.mp4",
+        "ours": "scene1-ours-s.mp4"
     },
     "scene2": {
-        "lapp": "scene2-lapp-11.mp4",
-        "ours": "scene2-ours-3.mp4"
+        "lapp": "scene2-lapp.mp4",
+        "ours": "scene2-ours-s.mp4"
     },
     "scene3": {
-        "lapp": "scene3-lapp-5.mp4",
-        "ours": "scene3-ours-5.mp4"
+        "lapp": "scene3-lapp.mp4",
+        "ours": "scene3-ours-s.mp4"
     },
     "scene4": {
-        "lapp": "scene4-lapp-4.mp4",
-        "ours": "scene4-ours-4.mp4"
+        "lapp": "scene4-lapp.mp4",
+        "ours": "scene4-ours-s.mp4"
     },
     "scene5": {
-        "lapp": "scene5-lapp-4.mp4",
-        "ours": "scene5-ours-1.mp4"
+        "lapp": "scene5-lapp.mp4",
+        "ours": "scene5-ours-s.mp4"
     },
     "scene6": {
-        "lapp": "scene6-lapp-4.mp4",
-        "ours": "scene6-ours-9.mp4"
+        "lapp": "scene6-lapp.mp4",
+        "ours": "scene6-ours-s.mp4"
     },
     "scene7": {
-        "lapp": "scene7-lapp-7.mp4",
-        "ours": "scene7-ours-10.mp4"
+        "lapp": "scene7-lapp.mp4",
+        "ours": "scene7-ours-s.mp4"
     },
     "scene8": {
-        "lapp": "scene8-lapp-6.mp4",
-        "ours": "scene8-ours-3.mp4"
+        "lapp": "scene8-lapp.mp4",
+        "ours": "scene8-ours-s.mp4"
     },
     "scene9": {
-        "lapp": "scene9-lapp-12.mp4",
-        "ours": "scene9-ours-5.mp4"
+        "lapp": "scene9-lapp.mp4",
+        "ours": "scene9-ours-s.mp4"
     },
     "scene10": {
-        "lapp": "scene10-lapp-6.mp4",
-        "ours": "scene10-ours-9.mp4"
+        "lapp": "scene10-lapp.mp4",
+        "ours": "scene10-ours-s.mp4"
     },
     "scene101": {
         "impact-rrt_star": "scene101-default-shelf2-center-rrt_star-200-10-08_video.mp4",
