@@ -74,8 +74,10 @@
           <p>
             Motion planning involves determining a sequence of robot configurations to reach a desired pose, subject to movement and safety constraints. 
             Traditional motion planning finds collision-free paths, but this is overly restrictive in clutter, where it may not be possible for a robot to accomplish a task without contact. 
-            In addition, contacts range from relatively benign (e.g., brushing a soft pillow) to more dangerous (e.g., toppling a glass vase). 
-            Due to this diversity, it is difficult to characterize which contacts may be acceptable or unacceptable. 
+            In addition, contacts range from relatively benign (e.g. brushing a soft pillow) to more dangerous (e.g. toppling a glass vase), making it difficult to characterize which may be acceptable. In this paper, we propose IMPACT, a novel motion planning framework that uses Vision-Language Models (VLMs) to infer environment semantics, identifying which parts of the environment can best tolerate contact based on object properties and locations. 
+            Our approach generates an anisotropic cost map that encodes directional push safety. We pair this map with a contact-aware A* planner to find stable contact-rich paths.
+            We perform experiments using 20 simulation and 10 real-world scenes and assess using task success rate, object displacements, and feedback from human evaluators. 
+            Our results over 3200 simulation and 200 real-world trials suggest that IMPACT enables efficient contact-rich motion planning in cluttered settings while outperforming alternative methods and ablations.
           </p>
           <p>
             In this paper, we propose <b>IMPACT</b>, a novel motion planning framework that uses Vision-Language Models (VLMs) to infer environment semantics, identifying which parts of the environment can best tolerate contact based on object properties and locations. 
@@ -98,21 +100,18 @@
         <h2 class="title is-3">Method Overview</h2> 
 
         <div class="column has-text-centered">
-          <img src="./static/images/method_v07.jpg"
+          <img src="./static/images/method_v13.pdf"
             class="centered-method"
             alt="method">
         </div>
 
         <div class="content has-text-justified">
           <p>
-            Overview of <b>IMPACT</b>. There is a toy bear, a coffee cup and a tomato can on the table. 
-            The objective is to reach the tomato can. 
-            We use SAM2 to segment the image and label the objects using "1", "2", and "3" to assist GPT's visual reasoning. 
-            GPT also receives a language template prompt \( \ell \) with object information from SAM2. 
-            GPT produces <b><i>costs</i></b> for the three objects, which are projected into a voxel grid \( C \) indicating the cost for the robot end-effector to enter each voxel.
-            The costs are high for the coffee cup (GPT-assigned cost: 8) and the tabletop (a fixed cost of 10). 
-            We use a cost of -1 for the target object. 
-            Finally, an off-the-shelf motion planner (RRT*) uses this to guide the robot, which avoids the coffee cup but makes contact with the toy bear to successfully reach the tomato can. 
+            Overview of IMPACT. There is a toy bear, a coffee cup and a glue bottle (target) on the table. 
+            The VLM receives an annotated image \( I' \) and a language template prompt \( \ell \) with object information from SAM2, and outputs <b><i>costs</i></b> for the three objects.
+            We use a cost of \( -1 \) for the target object. We construct a 3D voxel grid \( V \) using these costs and then flatten it to produce an anisotropic, contact-aware cost map \( M' \). The contact-aware A* planner searches over three motion primitives in this map: <b><i>Move</i></b>, <b><i>Push</i></b> and <b><i>Rotate</i></b> to generate a trajectory. 
+            The planner's state space includes the robot's end-effector pose and the displaced positions of low-cost objects. 
+            These guide the robot to avoid the coffee cup but make contact with the toy bear at the appropriate direction to reach the glue bottle.
           </p>
         </div>
         
@@ -123,12 +122,12 @@
           <div class="column is-half has-text-centered">
             <p style="text-align:center;">
               <video id="interactive-video" width="100%" height="425" controls autoplay loop muted>
-                <source src="./static/videos/sim/scene102-cot-shelf2-center-rrt_star-200-10-03_video.mp4" type="video/mp4">
+                <source src="./static/videos/sim/scene206-default-table_top-center-a_star-200-10-07.mp4" type="video/mp4">
               </video>
             </p>
           </div>
           <div class="column has-text-centered">
-            <iframe id="interactive-html" src="./static/maps/scene102_costmap.html" width="100%" height="340" frameborder="0" style="margin: 0; padding: 0;"></iframe>
+            <iframe id="interactive-html" src="./static/maps/scene206_costmap.html" width="100%" height="340" frameborder="0" style="margin: 0; padding: 0;"></iframe>
             <!-- <p style="text-align:center; margin-top: auto;"> -->
             <p style="text-align: center">
               Interactive 3D Cost Map
