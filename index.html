@@ -97,16 +97,16 @@
         <h2 class="title is-3">Method Overview</h2> 
 
         <div class="column has-text-centered">
-          <img src="./static/images/method_v13.pdf"
+          <img src="./static/images/method_v13.jpg"
             class="centered-method"
             alt="method">
         </div>
 
         <div class="content has-text-justified">
           <p>
-            Overview of IMPACT. There is a toy bear, a coffee cup and a glue bottle (target) on the table. 
-            The VLM receives an annotated image \( I' \) and a language template prompt \( \ell \) with object information from SAM2, and outputs <b><i>costs</i></b> for the three objects.
-            We use a cost of \( -1 \) for the target object. We construct a 3D voxel grid \( V \) using these costs and then flatten it to produce an anisotropic, contact-aware cost map \( M' \). The contact-aware A* planner searches over three motion primitives in this map: <b><i>Move</i></b>, <b><i>Push</i></b> and <b><i>Rotate</i></b> to generate a trajectory. 
+            Overview of <b>IMPACT</b>. There is a toy bear, a coffee cup and a glue bottle (target) on the table. 
+            The VLM receives an annotated image \( I' \) and a language template prompt \( \ell \) with object information from SAM2, and outputs <i>costs</i> for the three objects.
+            We use a cost of \( -1 \) for the target object. We construct a 3D voxel grid \( V \) using these costs and then flatten it to produce an <i>anisotropic, contact-aware cost map</i> \( M' \). The contact-aware A* planner searches over three motion primitives in this map: <i>Move</i>, <i>Push</i> and <i>Rotate</i> to generate a trajectory. 
             The planner's state space includes the robot's end-effector pose and the displaced positions of low-cost objects. 
             These guide the robot to avoid the coffee cup but make contact with the toy bear at the appropriate direction to reach the glue bottle.
           </p>
