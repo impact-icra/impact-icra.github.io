@@ -161,14 +161,51 @@
 
         <div class="columns is-centered">
           <div class="column is-6 has-text-centered">
-            <h3 class="title is-4">Baseline: LAPP</h3>
+            <h3 class="title is-5">Baseline: LAPP</h3>
             <video id="video-real-left" width="98%" controls muted autoplay loop>
               <source src="./static/videos/real/scene1-lapp.mp4" type="video/mp4">
             </video>
           </div>
     
           <div class="column is-6 has-text-centered">
-            <h3 class="title is-4">Ours: IMPACT</h3>
+            <h3 class="title is-5">Ours: IMPACT</h3>
+            <video id="video-real-right" width="98%" controls muted autoplay loop>
+              <source src="./static/videos/real/scene1-ours-s.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+        <p>
+          IMPACT has strong zero-shot generalization capabilities, can be applied to all scenarios without finetuing or sim-to-real transfer.
+        </p>
+
+         <div class="columns is-centered is-vcentered">
+
+          <div class="scene-container">
+            <div class="dropdown-container">
+              <label><strong>Example</strong></label>
+              <select class="dropdown" id="example-select-real" onchange="updateExampleVideosReal()">
+              </select>
+            </div>
+            <br/>    
+
+            <p id="target-object-text-real">
+              The target object is <strong>the glue bottle</strong>. <strong>The cup containing two markers</strong> is <i>unseen</i> to LAPP.
+            </p>
+          </div>
+        </div>    
+        <br/>    
+
+        <div class="columns is-centered">
+          <div class="column is-6 has-text-centered">
+            <h3 class="title is-5">Baseline: LAPP</h3>
+            <video id="video-real-left" width="98%" controls muted autoplay loop>
+              <source src="./static/videos/real/scene1-lapp.mp4" type="video/mp4">
+            </video>
+          </div>
+    
+          <div class="column is-6 has-text-centered">
+            <h3 class="title is-5">Ours: IMPACT</h3>
             <video id="video-real-right" width="98%" controls muted autoplay loop>
               <source src="./static/videos/real/scene1-ours-s.mp4" type="video/mp4">
             </video>
@@ -294,6 +331,17 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
     </script>
 
     <script>
+      let exampleDropdownReal = document.getElementById("example-select-real");
+      for (let i = 8; i <= 9; i++) {
+          let option = document.createElement("option");
+          option.value = `scene${i}`; // Value in the format "scene1", "scene2", etc.
+          index  = 10 - i;
+          option.textContent = index.toString().padStart(2, "0"); // Display "01", "02", ..., "10"
+          exampleDropdownReal.appendChild(option);
+      }
+    </script>
+
+    <script>
       let sceneDropdownSim = document.getElementById("scene-select-sim");
       for (let i = 1; i <= 20; i++) {
           let option = document.createElement("option");
@@ -316,6 +364,50 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
                 document.getElementById("target-object-text-real").innerHTML = `The target object is <strong>the ${targetText}</strong>.`;
             })
             .catch(error => console.error("Error loading target object JSON:", error));
+
+          fetch('./static/video_files.json')
+          .then(response => response.json())
+          .then(videoData => {
+              if (videoData[scene]) {
+                  let lappFilename = videoData[scene]["lapp"];
+                  let oursFilename = videoData[scene]["ours"];
+
+                  document.getElementById("video-real-left").src = `./static/videos/real/${lappFilename}`;
+                  document.getElementById("video-real-right").src = `./static/videos/real/${oursFilename}`;
+
+                  document.getElementById("video-real-left").load();
+                  document.getElementById("video-real-right").load();
+              } else {
+                  console.error("Scene not found in video JSON:", scene);
+              }
+          })
+          .catch(error => console.error("Error loading video filenames:", error));
+      }
+    </script>
+
+    <script>
+      function updateExampleVideosReal() {
+          let scene = document.getElementById("example-select-real").value;
+
+          Promise.all([
+              fetch('./static/target_objects.json').then(res => res.json()),
+              fetch('./static/unseen_objects.json').then(res => res.json())
+          ])
+            .then(([targetData, unseenData]) => {
+                let targetText = targetData[scene] || ""; 
+                let unseenText = unseenData[scene] || "";
+                document.getElementById("target-object-text-real").innerHTML = `The target object is <strong>the ${targetText}</strong>. <strong>The ${unseenText}</strong> is <i>unseen</i> to LAPP.`;
+            })
+            .catch(error => console.error("Error loading JSON files:", error));
+
+          // fetch('./static/target_objects.json') 
+          //   .then(response => response.json())
+          //   .then(data => {
+          //       let targetText = data[scene] || ""; 
+          //       let unseenText = "";
+          //       document.getElementById("target-object-text-real").innerHTML = `The target object is <strong>the ${targetText}</strong>. <strong>The ${unseenText}</strong> is <i>unseen</i> to LAPP.`;
+          //   })
+          //   .catch(error => console.error("Error loading target object JSON:", error));
 
           fetch('./static/video_files.json')
           .then(response => response.json())
