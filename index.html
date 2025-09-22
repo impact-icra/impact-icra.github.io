@@ -170,15 +170,17 @@
           <div class="column is-6 has-text-centered">
             <h3 class="title is-5">Ours: IMPACT</h3>
             <video id="video-real-right" width="98%" controls muted autoplay loop>
-              <source src="./static/videos/real/scene1-ours-s.mp4" type="video/mp4">
+              <source src="./static/videos/real/scene1-ours-s-text.mp4" type="video/mp4">
             </video>
           </div>
         </div>
 
+        <!-- <br/>   -->
         <p>
           IMPACT has strong zero-shot generalization capabilities, can be applied to all scenarios without finetuing or sim-to-real transfer.
         </p>
 
+        <br/>
          <div class="columns is-centered is-vcentered">
 
           <div class="scene-container">
@@ -200,14 +202,14 @@
           <div class="column is-6 has-text-centered">
             <h3 class="title is-5">Baseline: LAPP</h3>
             <video id="video-real-left" width="98%" controls muted autoplay loop>
-              <source src="./static/videos/real/scene1-lapp.mp4" type="video/mp4">
+              <source src="./static/videos/real/scene9-lapp.mp4" type="video/mp4">
             </video>
           </div>
     
           <div class="column is-6 has-text-centered">
             <h3 class="title is-5">Ours: IMPACT</h3>
             <video id="video-real-right" width="98%" controls muted autoplay loop>
-              <source src="./static/videos/real/scene1-ours-s.mp4" type="video/mp4">
+              <source src="./static/videos/real/scene9-ours-s-text.mp4" type="video/mp4">
             </video>
           </div>
         </div>
@@ -332,7 +334,7 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
 
     <script>
       let exampleDropdownReal = document.getElementById("example-select-real");
-      for (let i = 8; i <= 9; i++) {
+      for (let i = 9; i >= 8; i--) {
           let option = document.createElement("option");
           option.value = `scene${i}`; // Value in the format "scene1", "scene2", etc.
           index  = 10 - i;
