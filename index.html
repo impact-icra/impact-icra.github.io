@@ -175,9 +175,9 @@
           </div>
         </div>
 
-        <!-- <br/>   -->
+        <h3 class="title is-4">Zero-shot Generalization</h3>
         <p>
-          IMPACT has strong zero-shot generalization capabilities, can be applied to all scenarios without finetuing or sim-to-real transfer.
+          IMPACT has strong zero-shot generalization capabilities, and can be applied to diverse scenarios without finetuing or sim-to-real transfer.
         </p>
 
         <br/>
@@ -189,9 +189,9 @@
               <select class="dropdown" id="example-select-real" onchange="updateExampleVideosReal()">
               </select>
             </div>
-            <br/>    
+            <!-- <br/>     -->
 
-            <p id="target-object-text-real">
+            <p id="target-unseen-object-text-real">
               The target object is <strong>the glue bottle</strong>. <strong>The cup containing two markers</strong> is <i>unseen</i> to LAPP.
             </p>
           </div>
@@ -201,14 +201,14 @@
         <div class="columns is-centered">
           <div class="column is-6 has-text-centered">
             <h3 class="title is-5">Baseline: LAPP</h3>
-            <video id="video-real-left" width="98%" controls muted autoplay loop>
+            <video id="video-example-real-left" width="98%" controls muted autoplay loop>
               <source src="./static/videos/real/scene9-lapp.mp4" type="video/mp4">
             </video>
           </div>
     
           <div class="column is-6 has-text-centered">
             <h3 class="title is-5">Ours: IMPACT</h3>
-            <video id="video-real-right" width="98%" controls muted autoplay loop>
+            <video id="video-example-real-right" width="98%" controls muted autoplay loop>
               <source src="./static/videos/real/scene9-ours-s-text.mp4" type="video/mp4">
             </video>
           </div>
@@ -398,18 +398,9 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
             .then(([targetData, unseenData]) => {
                 let targetText = targetData[scene] || ""; 
                 let unseenText = unseenData[scene] || "";
-                document.getElementById("target-object-text-real").innerHTML = `The target object is <strong>the ${targetText}</strong>. <strong>The ${unseenText}</strong> is <i>unseen</i> to LAPP.`;
+                document.getElementById("target-unseen-object-text-real").innerHTML = `The target object is <strong>the ${targetText}</strong>. <strong>The ${unseenText}</strong> is <i>unseen</i> to LAPP.`;
             })
             .catch(error => console.error("Error loading JSON files:", error));
-
-          // fetch('./static/target_objects.json') 
-          //   .then(response => response.json())
-          //   .then(data => {
-          //       let targetText = data[scene] || ""; 
-          //       let unseenText = "";
-          //       document.getElementById("target-object-text-real").innerHTML = `The target object is <strong>the ${targetText}</strong>. <strong>The ${unseenText}</strong> is <i>unseen</i> to LAPP.`;
-          //   })
-          //   .catch(error => console.error("Error loading target object JSON:", error));
 
           fetch('./static/video_files.json')
           .then(response => response.json())
@@ -418,11 +409,11 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
                   let lappFilename = videoData[scene]["lapp"];
                   let oursFilename = videoData[scene]["ours"];
 
-                  document.getElementById("video-real-left").src = `./static/videos/real/${lappFilename}`;
-                  document.getElementById("video-real-right").src = `./static/videos/real/${oursFilename}`;
+                  document.getElementById("video-example-real-left").src = `./static/videos/real/${lappFilename}`;
+                  document.getElementById("video-example-real-right").src = `./static/videos/real/${oursFilename}`;
 
-                  document.getElementById("video-real-left").load();
-                  document.getElementById("video-real-right").load();
+                  document.getElementById("video-example-real-left").load();
+                  document.getElementById("video-example-real-right").load();
               } else {
                   console.error("Scene not found in video JSON:", scene);
               }
