@@ -164,14 +164,14 @@
             </p>
           </div>
           <div class="column has-text-centered">
-            <iframe id="interactive-html" src="./static/maps/scene206_costmap.html" width="100%" height="260" frameborder="0" style="margin: 0; padding: 0;"></iframe>
+            <iframe id="interactive-html" src="./static/maps/scene206_costmap.html" width="100%" height="220" frameborder="0" style="margin: 0; padding: 0;"></iframe>
             <!-- <p style="text-align:center; margin-top: auto;"> -->
             <p style="text-align: center">
               Interactive 3D Map
             </p>
           </div>
           <div class="column has-text-centered">
-            <img src="./static/images/scene206_push_safety_updated_grid.png" style="max-width:100%; height:auto;">
+            <img src="./static/images/scene206_push_safety_updated_grid.png" width="100%" height="220" style="margin: 0; padding: 0;">
             <p style="text-align: center">Anisotropic Cost Map</p>
           </div>
         </div>
@@ -516,7 +516,6 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
     <script>
       function updateVideosSimCf() {
           let scene = document.getElementById("scene-select-sim-cf").value;
-          let method = document.getElementById("method-select-sim-cf").value;
 
           fetch('./static/target_objects.json')
             .then(response => response.json())
@@ -534,8 +533,8 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
             .then(response => response.json())
             .then(videoData => {
                 if (videoData[scene]) {
-                    let baseFilename = videoData[scene]?.[method] || null;
-                    let oursFilename = videoData[scene]?.["default _star"] || null;
+                    let baseFilename = videoData[scene]?.["collision_free"] || null;
+                    let oursFilename = videoData[scene]?.["impact"] || null;
 
                     if (baseFilename) {
                       document.getElementById("video-sim-cf-left").src = `./static/videos/sim/${baseFilename}`;
@@ -554,6 +553,57 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
                       document.getElementById("no-path-cf-right").style.display = "none";
                     } else {
                       document.getElementById("video-sim-cf-right").style.display = "none";
+                      document.getElementById("no-path-right").style.display = "block";
+                    }
+
+                } else {
+                    console.error("No matching video found for:", scene, method);
+                }
+            })
+            .catch(error => console.error("Error loading video filenames:", error));
+      }
+    </script>
+
+    <script>
+      function updateVideosSimCf() {
+          let scene = document.getElementById("scene-select-sim-dir").value;
+
+          fetch('./static/target_objects.json')
+            .then(response => response.json())
+            .then(data => {
+                let targetText = data[scene] || ""; 
+
+            console.log("Scene selected:", scene);
+            console.log("Target object retrieved:", targetText);
+
+                document.getElementById("target-object-text-sim-dir").innerHTML = `The target object is <strong>the ${targetText}</strong>.`;
+            })
+            .catch(error => console.error("Error loading target object JSON:", error));
+
+          fetch('./static/video_files.json')
+            .then(response => response.json())
+            .then(videoData => {
+                if (videoData[scene]) {
+                    let baseFilename = videoData[scene]?.["no_direction"] || null;
+                    let oursFilename = videoData[scene]?.["impact"] || null;
+
+                    if (baseFilename) {
+                      document.getElementById("video-sim-dir-left").src = `./static/videos/sim/${baseFilename}`;
+                      document.getElementById("video-sim-dir-left").load();
+                      document.getElementById("video-sim-dir-left").style.display = "block";
+                      document.getElementById("no-path-dir-left").style.display = "none";
+                    } else {
+                      document.getElementById("video-sim-dir-left").style.display = "none";
+                      document.getElementById("no-path-left").style.display = "block";
+                    }
+
+                    if (oursFilename) {
+                      document.getElementById("video-sim-dir-right").src = `./static/videos/sim/${oursFilename}`;
+                      document.getElementById("video-sim-dir-right").load();
+                      document.getElementById("video-sim-dir-right").style.display = "block";
+                      document.getElementById("no-path-dir-right").style.display = "none";
+                    } else {
+                      document.getElementById("video-sim-dir-right").style.display = "none";
                       document.getElementById("no-path-right").style.display = "block";
                     }
 
