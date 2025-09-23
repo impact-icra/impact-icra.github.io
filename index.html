@@ -54,16 +54,6 @@
   </div>
 </section>
 
-<!-- <section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mp4" type="video/mp4">
-      </video>
-    </div>
-  </div>
-</section> -->
-
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
@@ -92,6 +82,9 @@
         <video autoplay muted loop playsinline>
           <source src="./static/videos/real/scene9-ours-s-text.mp4" type="video/mp4">
         </video>
+        <video autoplay muted loop playsinline>
+          <source src="./static/videos/real/scene10-ours-s-text.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
   </div>
@@ -100,8 +93,8 @@
 <style>
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columns */
-  grid-gap: 10px; /* space between videos */
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  grid-gap: 8px; /* space between videos */
 }
 
 .video-grid video {
@@ -163,7 +156,7 @@
         <h3 class="title is-4">Cost Map Visualization</h3> 
 
         <div class="columns">
-          <div class="column is-half has-text-centered">
+          <div class="column has-text-centered">
             <p style="text-align:center;">
               <video id="interactive-video" width="100%" height="325" controls autoplay loop muted>
                 <source src="./static/videos/sim/scene206-default-table_top-center-a_star-200-10-15_video.mp4" type="video/mp4">
@@ -430,12 +423,12 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
       let sceneDropdownSimCf = document.getElementById("scene-select-sim-cf");
       let sim_cf_video_list = [207, 119, 111];
       for (let j = 0; j < sim_cf_video_list.length; j++) {
-        let i = sim_cf_video_list[j];
+          let i = sim_cf_video_list[j];
           let option = document.createElement("option");
-          index = i.toString().padStart(2, "0");
+          index = i.toString();
           option.value = `scene${index}`; 
           option.textContent = (j+1).toString().padStart(2, "0"); 
-          sceneDropdownSim.appendChild(option);
+          sceneDropdownSimCf.appendChild(option);
       }
     </script>
 
@@ -443,12 +436,12 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
       let sceneDropdownSimDir = document.getElementById("scene-select-sim-dir");
       let sim_dir_video_list = [203, 116, 308];
       for (let j = 0; j < sim_dir_video_list.length; j++) {
-        let i = sim_dir_video_list[j];
+          let i = sim_dir_video_list[j];
           let option = document.createElement("option");
-          index = i.toString().padStart(2, "0");
+          index = i.toString();
           option.value = `scene${index}`; 
           option.textContent = (j+1).toString().padStart(2, "0"); 
-          sceneDropdownSim.appendChild(option);
+          sceneDropdownSimDir.appendChild(option);
       }
     </script>
 
