@@ -171,7 +171,7 @@
             </p>
           </div>
           <div class="column has-text-centered">
-            <img src="./static/images/scene206_push_safety_updated_grid_crop.png" width="230" height="auto" style="margin: 0; padding: 0;">
+            <img src="./static/images/scene206_push_safety_updated_grid_crop.png" width="220" height="auto" style="margin: 0; padding: 0;">
             <p style="text-align: center">Anisotropic Cost Map</p>
           </div>
         </div>
@@ -232,7 +232,6 @@
               <select class="dropdown" id="example-select-real" onchange="updateExampleVideosReal()">
               </select>
             </div>
-            <!-- <br/>     -->
 
             <p id="target-unseen-object-text-real">
               The target object is <strong>the pickleball</strong>. <strong>The cup containing two markers</strong> is <i>unseen</i> to LAPP.
@@ -269,9 +268,10 @@
         <h3 class="title is-4">Q1: Does acceptable contact really make sense?</h3>
 
         <p>
-          Results in simulation show that  collision-free paths can still lead to unexpected collisions. 
+          Results in simulation show that collision-free paths can still lead to unexpected collisions. 
           By allowing acceptable contact, IMPACT generates safer and more reliable trajectories.
         </p>
+        <br/>
 
         <div class="columns is-centered is-vcentered">
 
@@ -294,10 +294,10 @@
           <div class="column is-6 has-text-centered">
             <h3 class="title is-5">Baseline: Collision-Free + A*</h3>
 
-            <video id="video-sim-cf-left" width="98%" controls muted autoplay loop>
+            <video id="eft" width="98%" controls muted autoplay loop>
               <source src="./static/videos/sim/scene207-collision_free-table_top-center-a_star-200-10-16_video.mp4" type="video/mp4">
             </video>
-            <p id="no-path-left" style="display: none; color: rgb(0, 0, 0); font-weight: bold;">No path found.</p>
+            <p id="no-path-cf-left" style="display: none; color: rgb(0, 0, 0); font-weight: bold;">No path found.</p>
           </div>
     
           <div class="column is-6 has-text-centered">
@@ -305,7 +305,7 @@
             <video id="video-sim-cf-right" width="98%" controls muted autoplay loop>
               <source src="./static/videos/sim/scene207-default-table_top-center-a_star-200-10-08_video.mp4" type="video/mp4">
             </video>
-            <p id="no-path-right" style="display: none; color: rgb(0, 0, 0); font-weight: bold;">No path found.</p>
+            <p id="no-path-cf-right" style="display: none; color: rgb(0, 0, 0); font-weight: bold;">No path found.</p>
           </div>
         </div>
 
@@ -316,6 +316,7 @@
           Without directional push analysis, obstacles may get pushed into the target. 
           The anisotropic, contact-aware cost map guides pushes to be safer and more controlled.
         </p>
+        <br/>
 
         <div class="columns is-centered is-vcentered">
 
@@ -342,7 +343,7 @@
             <video id="video-sim-dir-left" width="98%" controls muted autoplay loop>
               <source src="./static/videos/sim/scene203-default-table_top-center-a_star_plain-200-10-08_video.mp4" type="video/mp4">
             </video>
-            <p id="no-path-left" style="display: none; color: rgb(0, 0, 0); font-weight: bold;">No path found.</p>
+            <p id="no-path-dir-left" style="display: none; color: rgb(0, 0, 0); font-weight: bold;">No path found.</p>
           </div>
     
           <div class="column is-6 has-text-centered">
@@ -350,7 +351,7 @@
             <video id="video-sim-dir-right" width="98%" controls muted autoplay loop>
               <source src="./static/videos/sim/scene203-default-table_top-center-a_star-200-10-03_video.mp4" type="video/mp4">
             </video>
-            <p id="no-path-right" style="display: none; color: rgb(0, 0, 0); font-weight: bold;">No path found.</p>
+            <p id="no-path-dir-right" style="display: none; color: rgb(0, 0, 0); font-weight: bold;">No path found.</p>
           </div>
         </div>
 
