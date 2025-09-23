@@ -54,7 +54,7 @@
   </div>
 </section>
 
-<section class="hero teaser">
+<!-- <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
       <video id="teaser" autoplay muted loop playsinline height="100%">
@@ -62,7 +62,54 @@
       </video>
     </div>
   </div>
+</section> -->
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="video-grid">
+        <video autoplay muted loop playsinline>
+          <source src="./static/videos/real/scene2-ours-s-text.mp4" type="video/mp4">
+        </video>
+        <video autoplay muted loop playsinline>
+          <source src="./static/videos/real/scene3-ours-s-text.mp4" type="video/mp4">
+        </video>
+        <video autoplay muted loop playsinline>
+          <source src="./static/videos/real/scene4-ours-s-text.mp4" type="video/mp4">
+        </video>
+        <video autoplay muted loop playsinline>
+          <source src="./static/videos/real/scene5-ours-s-text.mp4" type="video/mp4">
+        </video>
+        <video autoplay muted loop playsinline>
+          <source src="./static/videos/real/scene6-ours-s-text.mp4" type="video/mp4">
+        </video>
+        <video autoplay muted loop playsinline>
+          <source src="./static/videos/real/scene7-ours-s-text.mp4" type="video/mp4">
+        </video>
+        <video autoplay muted loop playsinline>
+          <source src="./static/videos/real/scene8-ours-s-text.mp4" type="video/mp4">
+        </video>
+        <video autoplay muted loop playsinline>
+          <source src="./static/videos/real/scene9-ours-s-text.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
 </section>
+
+<style>
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  grid-gap: 10px; /* space between videos */
+}
+
+.video-grid video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+</style>
 
 
 <section class="section">
@@ -118,19 +165,22 @@
         <div class="columns">
           <div class="column is-half has-text-centered">
             <p style="text-align:center;">
-              <video id="interactive-video" width="100%" height="425" controls autoplay loop muted>
+              <video id="interactive-video" width="100%" height="325" controls autoplay loop muted>
                 <source src="./static/videos/sim/scene206-default-table_top-center-a_star-200-10-15_video.mp4" type="video/mp4">
               </video>
             </p>
           </div>
           <div class="column has-text-centered">
-            <iframe id="interactive-html" src="./static/maps/scene206_costmap.html" width="100%" height="340" frameborder="0" style="margin: 0; padding: 0;"></iframe>
+            <iframe id="interactive-html" src="./static/maps/scene206_costmap.html" width="100%" height="260" frameborder="0" style="margin: 0; padding: 0;"></iframe>
             <!-- <p style="text-align:center; margin-top: auto;"> -->
             <p style="text-align: center">
-              Interactive 3D Cost Map
+              Interactive 3D Map
             </p>
           </div>
-
+          <div class="column has-text-centered">
+            <img src="./static/images/scene206_push_safety_updated_grid.png" style="max-width:100%; height:auto;">
+            <p style="text-align: center">Anisotropic Cost Map</p>
+          </div>
         </div>
       </div>
     </div>
@@ -202,14 +252,14 @@
           <div class="column is-6 has-text-centered">
             <h3 class="title is-5">Baseline: LAPP</h3>
             <video id="video-example-real-left" width="98%" controls muted autoplay loop>
-              <source src="./static/videos/real/scene9-lapp.mp4" type="video/mp4">
+              <source src="./static/videos/real/scene4-lapp.mp4" type="video/mp4">
             </video>
           </div>
     
           <div class="column is-6 has-text-centered">
             <h3 class="title is-5">Ours: IMPACT</h3>
             <video id="video-example-real-right" width="98%" controls muted autoplay loop>
-              <source src="./static/videos/real/scene9-ours-s-text.mp4" type="video/mp4">
+              <source src="./static/videos/real/scene4-ours-s-text.mp4" type="video/mp4">
             </video>
           </div>
         </div>
@@ -223,7 +273,7 @@
         <h2 class="title is-3">Simulation Results</h2> 
         <br/> 
 
-        <h3 class="title is-4">Does acceptable contact really make sense?</h3>
+        <h3 class="title is-4">Q1: Does acceptable contact really make sense?</h3>
 
         <div class="columns is-centered is-vcentered">
 
@@ -244,18 +294,6 @@
 
         <div class="columns is-centered">
           <div class="column is-6 has-text-centered">
-            <!-- <div class="is-inline-flex" style="align-items: baseline;  gap: 2px;">
-              <h3 class="title is-5" style="margin: 3; display: inline-block;">Baseline:</h3>
-              <select class="dropdown" id="method-select-sim" style="display: inline-block;" onchange="updateVideosSim()">
-                <option value="impact-rrt">IMPACT+RRT</option>
-                <option value="impact-mpc">IMPACT+MPC</option>
-                <option value="collision_free-rrt_star">Collision-Free+RRT*</option>
-                <option value="collision_free-rrt">Collision-Free+RRT</option>
-                <option value="collision_free-mpc">Collision-Free+MPC</option>
-                <option value="lapp">LAPP</option>
-              </select>
-            </div> -->
-
             <h3 class="title is-5">Baseline: Collision-Free + A*</h3>
 
             <video id="video-sim-cf-left" width="98%" controls muted autoplay loop>
@@ -265,7 +303,7 @@
           </div>
     
           <div class="column is-6 has-text-centered">
-            <h3 class="title is-5">Ours: IMPACT+RRT*</h3>
+            <h3 class="title is-5">Ours: IMPACT</h3>
             <video id="video-sim-cf-right" width="98%" controls muted autoplay loop>
               <source src="./static/videos/sim/scene207-default-table_top-center-a_star-200-10-08_video.mp4" type="video/mp4">
             </video>
@@ -274,7 +312,7 @@
         </div>
 
 
-        <h3 class="title is-4">Does directional push analysis really matter?</h3>
+        <h3 class="title is-4">Q2: Does directional push analysis really matter?</h3>
 
         <div class="columns is-centered is-vcentered">
 
@@ -305,7 +343,7 @@
           </div>
     
           <div class="column is-6 has-text-centered">
-            <h3 class="title is-5">Ours: IMPACT+RRT*</h3>
+            <h3 class="title is-5">Ours: IMPACT</h3>
             <video id="video-sim-dir-right" width="98%" controls muted autoplay loop>
               <source src="./static/videos/sim/scene203-default-table_top-center-a_star-200-10-03_video.mp4" type="video/mp4">
             </video>
@@ -395,7 +433,7 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
         let i = sim_cf_video_list[j];
           let option = document.createElement("option");
           index = i.toString().padStart(2, "0");
-          option.value = `scene1${index}`; 
+          option.value = `scene${index}`; 
           option.textContent = (j+1).toString().padStart(2, "0"); 
           sceneDropdownSim.appendChild(option);
       }
@@ -408,7 +446,7 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
         let i = sim_dir_video_list[j];
           let option = document.createElement("option");
           index = i.toString().padStart(2, "0");
-          option.value = `scene1${index}`; 
+          option.value = `scene${index}`; 
           option.textContent = (j+1).toString().padStart(2, "0"); 
           sceneDropdownSim.appendChild(option);
       }
