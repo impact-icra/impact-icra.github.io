@@ -28,6 +28,6 @@ def crop_video(input_video):
 if __name__ == "__main__":
     input_dir = "./"
     for filename in os.listdir(input_dir):
-        if filename.startswith("scene207"):
+        if filename.startswith("scene206"):
             input_video = os.path.join(input_dir, filename)
             crop_video(input_video)
