@@ -171,7 +171,7 @@
             </p>
           </div>
           <div class="column has-text-centered">
-            <img src="./static/images/scene206_push_safety_updated_grid_crop.png" width="200" height="auto" style="margin: 0; padding: 0;">
+            <img src="./static/images/scene206_push_safety_updated_grid_crop.png" width="230" height="auto" style="margin: 0; padding: 0;">
             <p style="text-align: center">Anisotropic Cost Map</p>
           </div>
         </div>
@@ -268,6 +268,11 @@
 
         <h3 class="title is-4">Q1: Does acceptable contact really make sense?</h3>
 
+        <p>
+          Results in simulation show that  collision-free paths can still lead to unexpected collisions. 
+          By allowing acceptable contact, IMPACT generates safer and more reliable trajectories.
+        </p>
+
         <div class="columns is-centered is-vcentered">
 
           <div class="scene-container">
@@ -306,6 +311,11 @@
 
 
         <h3 class="title is-4">Q2: Does directional push analysis really matter?</h3>
+
+        <p>
+          Without directional push analysis, obstacles may get pushed into the target. 
+          The anisotropic, contact-aware cost map guides pushes to be safer and more controlled.
+        </p>
 
         <div class="columns is-centered is-vcentered">
 
@@ -534,7 +544,7 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
             .then(videoData => {
                 if (videoData[scene]) {
                     let baseFilename = videoData[scene]?.["collision_free"] || null;
-                    let oursFilename = videoData[scene]?.["impact"] || null;
+                    let oursFilename = videoData[scene]?.["ours"] || null;
 
                     if (baseFilename) {
                       document.getElementById("video-sim-cf-left").src = `./static/videos/sim/${baseFilename}`;
@@ -543,7 +553,7 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
                       document.getElementById("no-path-cf-left").style.display = "none";
                     } else {
                       document.getElementById("video-sim-cf-left").style.display = "none";
-                      document.getElementById("no-path-left").style.display = "block";
+                      document.getElementById("no-path-cf-left").style.display = "block";
                     }
 
                     if (oursFilename) {
@@ -553,7 +563,7 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
                       document.getElementById("no-path-cf-right").style.display = "none";
                     } else {
                       document.getElementById("video-sim-cf-right").style.display = "none";
-                      document.getElementById("no-path-right").style.display = "block";
+                      document.getElementById("no-path-cf-right").style.display = "block";
                     }
 
                 } else {
@@ -585,7 +595,7 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
             .then(videoData => {
                 if (videoData[scene]) {
                     let baseFilename = videoData[scene]?.["no_direction"] || null;
-                    let oursFilename = videoData[scene]?.["impact"] || null;
+                    let oursFilename = videoData[scene]?.["ours"] || null;
 
                     if (baseFilename) {
                       document.getElementById("video-sim-dir-left").src = `./static/videos/sim/${baseFilename}`;
@@ -594,7 +604,7 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
                       document.getElementById("no-path-dir-left").style.display = "none";
                     } else {
                       document.getElementById("video-sim-dir-left").style.display = "none";
-                      document.getElementById("no-path-left").style.display = "block";
+                      document.getElementById("no-path-dir-left").style.display = "block";
                     }
 
                     if (oursFilename) {
@@ -604,7 +614,7 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
                       document.getElementById("no-path-dir-right").style.display = "none";
                     } else {
                       document.getElementById("video-sim-dir-right").style.display = "none";
-                      document.getElementById("no-path-right").style.display = "block";
+                      document.getElementById("no-path-dir-right").style.display = "block";
                     }
 
                 } else {

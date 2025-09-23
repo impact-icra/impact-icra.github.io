@@ -41,26 +41,26 @@
     },
     "scene111": {
         "collision_free": "scene111-collision_free-table_top-center-a_star-200-10-03_video.mp4",
-        "impact": "scene111-default-table_top-center-a_star-200-10-03_video.mp4"
+        "ours": "scene111-default-table_top-center-a_star-200-10-03_video.mp4"
     },
     "scene116": {
         "no_direction": "scene116-default-table_top-center-a_star_plain-200-10-01_video.mp4",
-        "impact": "scene116-default-table_top-center-a_star-200-10-08_video.mp4"
+        "ours": "scene116-default-table_top-center-a_star-200-10-08_video.mp4"
     },
     "scene119": {
         "collision_free": "scene119-collision_free-table_top-center-a_star-200-10-04_video.mp4",
-        "impact": "scene119-default-table_top-center-a_star-200-10-04_video.mp4"
+        "ours": "scene119-default-table_top-center-a_star-200-10-04_video.mp4"
     },
     "scene203": {
         "no_direction": "scene203-default-table_top-center-a_star_plain-200-10-08_video.mp4",
-        "impact": "scene203-default-table_top-center-a_star-200-10-03_video.mp4"
+        "ours": "scene203-default-table_top-center-a_star-200-10-03_video.mp4"
     },
     "scene207": {
         "collision_free": "scene207-collision_free-table_top-center-a_star-200-10-16_video.mp4",
-        "impact": "scene207-default-table_top-center-a_star-200-10-08_video.mp4"
+        "ours": "scene207-default-table_top-center-a_star-200-10-08_video.mp4"
     },
     "scene308": {
         "no_direction": "scene308-default-table_top-center-a_star_plain-200-10-02_video.mp4",
-        "impact": "scene308-default-table_top-center-a_star-200-10-06_video.mp4"
+        "ours": "scene308-default-table_top-center-a_star-200-10-06_video.mp4"
     }
 }
