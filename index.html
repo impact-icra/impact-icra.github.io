@@ -119,7 +119,7 @@
           <div class="column is-half has-text-centered">
             <p style="text-align:center;">
               <video id="interactive-video" width="100%" height="425" controls autoplay loop muted>
-                <source src="./static/videos/sim/scene206-default-table_top-center-a_star-200-10-07.mp4" type="video/mp4">
+                <source src="./static/videos/sim/scene206-default-table_top-center-a_star-200-10-15_video.mp4" type="video/mp4">
               </video>
             </p>
           </div>
@@ -192,7 +192,7 @@
             <!-- <br/>     -->
 
             <p id="target-unseen-object-text-real">
-              The target object is <strong>the glue bottle</strong>. <strong>The cup containing two markers</strong> is <i>unseen</i> to LAPP.
+              The target object is <strong>the pickleball</strong>. <strong>The cup containing two markers</strong> is <i>unseen</i> to LAPP.
             </p>
           </div>
         </div>    
@@ -223,18 +223,20 @@
         <h2 class="title is-3">Simulation Results</h2> 
         <br/> 
 
+        <h3 class="title is-4">Does acceptable contact really make sense?</h3>
+
         <div class="columns is-centered is-vcentered">
 
           <div class="scene-container">
             <div class="dropdown-container">
-              <label><strong>Scene</strong></label>
-              <select class="dropdown" id="scene-select-sim" onchange="updateVideosSim()">
+              <label><strong>Example</strong></label>
+              <select class="dropdown" id="scene-select-sim-cf" onchange="updateVideosSimCf()">
               </select>
             </div>
             <br/>    
             
-            <p id="target-object-text-sim">
-              The target object is <strong>the foam brick</strong>.
+            <p id="target-object-text-sim-cf">
+              The target object is <strong>the pudding box</strong>.
             </p>
           </div>
         </div>
@@ -242,8 +244,8 @@
 
         <div class="columns is-centered">
           <div class="column is-6 has-text-centered">
-            <div class="is-inline-flex" style="align-items: baseline;  gap: 2px;">
-              <h3 class="title is-4" style="margin: 3; display: inline-block;">Baseline:</h3>
+            <!-- <div class="is-inline-flex" style="align-items: baseline;  gap: 2px;">
+              <h3 class="title is-5" style="margin: 3; display: inline-block;">Baseline:</h3>
               <select class="dropdown" id="method-select-sim" style="display: inline-block;" onchange="updateVideosSim()">
                 <option value="impact-rrt">IMPACT+RRT</option>
                 <option value="impact-mpc">IMPACT+MPC</option>
@@ -252,18 +254,60 @@
                 <option value="collision_free-mpc">Collision-Free+MPC</option>
                 <option value="lapp">LAPP</option>
               </select>
-            </div>
+            </div> -->
 
-            <video id="video-sim-left" width="98%" controls muted autoplay loop>
-              <source src="./static/videos/sim/scene101-default-shelf2-center-rrt-200-10-02_video.mp4" type="video/mp4">
+            <h3 class="title is-5">Baseline: Collision-Free + A*</h3>
+
+            <video id="video-sim-cf-left" width="98%" controls muted autoplay loop>
+              <source src="./static/videos/sim/scene207-collision_free-table_top-center-a_star-200-10-16_video.mp4" type="video/mp4">
             </video>
             <p id="no-path-left" style="display: none; color: rgb(0, 0, 0); font-weight: bold;">No path found.</p>
           </div>
     
           <div class="column is-6 has-text-centered">
-            <h3 class="title is-4">Ours: IMPACT+RRT*</h3>
-            <video id="video-sim-right" width="98%" controls muted autoplay loop>
-              <source src="./static/videos/sim/scene101-default-shelf2-center-rrt_star-200-10-08_video.mp4" type="video/mp4">
+            <h3 class="title is-5">Ours: IMPACT+RRT*</h3>
+            <video id="video-sim-cf-right" width="98%" controls muted autoplay loop>
+              <source src="./static/videos/sim/scene207-default-table_top-center-a_star-200-10-08_video.mp4" type="video/mp4">
+            </video>
+            <p id="no-path-right" style="display: none; color: rgb(0, 0, 0); font-weight: bold;">No path found.</p>
+          </div>
+        </div>
+
+
+        <h3 class="title is-4">Does directional push analysis really matter?</h3>
+
+        <div class="columns is-centered is-vcentered">
+
+          <div class="scene-container">
+            <div class="dropdown-container">
+              <label><strong>Example</strong></label>
+              <select class="dropdown" id="scene-select-sim-dir" onchange="updateVideosSimDir()">
+              </select>
+            </div>
+            <br/>    
+            
+            <p id="target-object-text-sim-dir">
+              The target object is <strong>the cup</strong>.
+            </p>
+          </div>
+        </div>
+        <br/>  
+
+        <div class="columns is-centered">
+          <div class="column is-6 has-text-centered">
+
+            <h3 class="title is-5">Baseline: VLM Cost + A* w/o direction</h3>
+
+            <video id="video-sim-dir-left" width="98%" controls muted autoplay loop>
+              <source src="./static/videos/sim/scene203-default-table_top-center-a_star_plain-200-10-08_video.mp4" type="video/mp4">
+            </video>
+            <p id="no-path-left" style="display: none; color: rgb(0, 0, 0); font-weight: bold;">No path found.</p>
+          </div>
+    
+          <div class="column is-6 has-text-centered">
+            <h3 class="title is-5">Ours: IMPACT+RRT*</h3>
+            <video id="video-sim-dir-right" width="98%" controls muted autoplay loop>
+              <source src="./static/videos/sim/scene203-default-table_top-center-a_star-200-10-03_video.mp4" type="video/mp4">
             </video>
             <p id="no-path-right" style="display: none; color: rgb(0, 0, 0); font-weight: bold;">No path found.</p>
           </div>
@@ -334,22 +378,38 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
 
     <script>
       let exampleDropdownReal = document.getElementById("example-select-real");
-      for (let i = 9; i >= 8; i--) {
+      let example_real_video_list = [4, 8];
+      for (let j = 0; j < example_real_video_list.length; j++) {
+          let i = example_real_video_list[j];
           let option = document.createElement("option");
           option.value = `scene${i}`; // Value in the format "scene1", "scene2", etc.
-          index  = 10 - i;
-          option.textContent = index.toString().padStart(2, "0"); // Display "01", "02", ..., "10"
+          option.textContent = (j+1).toString().padStart(2, "0"); // Display "01", "02", ..., "10"
           exampleDropdownReal.appendChild(option);
       }
     </script>
 
     <script>
-      let sceneDropdownSim = document.getElementById("scene-select-sim");
-      for (let i = 1; i <= 20; i++) {
+      let sceneDropdownSimCf = document.getElementById("scene-select-sim-cf");
+      let sim_cf_video_list = [207, 119, 111];
+      for (let j = 0; j < sim_cf_video_list.length; j++) {
+        let i = sim_cf_video_list[j];
           let option = document.createElement("option");
           index = i.toString().padStart(2, "0");
           option.value = `scene1${index}`; 
-          option.textContent = i.toString().padStart(2, "0"); 
+          option.textContent = (j+1).toString().padStart(2, "0"); 
+          sceneDropdownSim.appendChild(option);
+      }
+    </script>
+
+    <script>
+      let sceneDropdownSimDir = document.getElementById("scene-select-sim-dir");
+      let sim_dir_video_list = [203, 116, 308];
+      for (let j = 0; j < sim_dir_video_list.length; j++) {
+        let i = sim_dir_video_list[j];
+          let option = document.createElement("option");
+          index = i.toString().padStart(2, "0");
+          option.value = `scene1${index}`; 
+          option.textContent = (j+1).toString().padStart(2, "0"); 
           sceneDropdownSim.appendChild(option);
       }
     </script>
@@ -423,9 +483,9 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
     </script>
 
     <script>
-      function updateVideosSim() {
-          let scene = document.getElementById("scene-select-sim").value;
-          let method = document.getElementById("method-select-sim").value;
+      function updateVideosSimCf() {
+          let scene = document.getElementById("scene-select-sim-cf").value;
+          let method = document.getElementById("method-select-sim-cf").value;
 
           fetch('./static/target_objects.json')
             .then(response => response.json())
@@ -435,7 +495,7 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
             console.log("Scene selected:", scene);
             console.log("Target object retrieved:", targetText);
 
-                document.getElementById("target-object-text-sim").innerHTML = `The target object is <strong>the ${targetText}</strong>.`;
+                document.getElementById("target-object-text-sim-cf").innerHTML = `The target object is <strong>the ${targetText}</strong>.`;
             })
             .catch(error => console.error("Error loading target object JSON:", error));
 
@@ -444,25 +504,25 @@ Your analysis should be comprehensive, considering the dynamic interactions betw
             .then(videoData => {
                 if (videoData[scene]) {
                     let baseFilename = videoData[scene]?.[method] || null;
-                    let oursFilename = videoData[scene]?.["impact-rrt_star"] || null;
+                    let oursFilename = videoData[scene]?.["default _star"] || null;
 
                     if (baseFilename) {
-                      document.getElementById("video-sim-left").src = `./static/videos/sim/${baseFilename}`;
-                      document.getElementById("video-sim-left").load();
-                      document.getElementById("video-sim-left").style.display = "block";
-                      document.getElementById("no-path-left").style.display = "none";
+                      document.getElementById("video-sim-cf-left").src = `./static/videos/sim/${baseFilename}`;
+                      document.getElementById("video-sim-cf-left").load();
+                      document.getElementById("video-sim-cf-left").style.display = "block";
+                      document.getElementById("no-path-cf-left").style.display = "none";
                     } else {
-                      document.getElementById("video-sim-left").style.display = "none";
+                      document.getElementById("video-sim-cf-left").style.display = "none";
                       document.getElementById("no-path-left").style.display = "block";
                     }
 
                     if (oursFilename) {
-                      document.getElementById("video-sim-right").src = `./static/videos/sim/${oursFilename}`;
-                      document.getElementById("video-sim-right").load();
-                      document.getElementById("video-sim-right").style.display = "block";
-                      document.getElementById("no-path-right").style.display = "none";
+                      document.getElementById("video-sim-cf-right").src = `./static/videos/sim/${oursFilename}`;
+                      document.getElementById("video-sim-cf-right").load();
+                      document.getElementById("video-sim-cf-right").style.display = "block";
+                      document.getElementById("no-path-cf-right").style.display = "none";
                     } else {
-                      document.getElementById("video-sim-right").style.display = "none";
+                      document.getElementById("video-sim-cf-right").style.display = "none";
                       document.getElementById("no-path-right").style.display = "block";
                     }
 
